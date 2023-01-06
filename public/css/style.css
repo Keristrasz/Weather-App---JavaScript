@@ -1,0 +1,97 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #222;
+  color: #ddd;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.blurred  {
+  filter: blur(3px);
+  overflow: hidden;
+}
+
+/* HEADER */ 
+
+header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.header-left-mainlabel, .header-right-mainlabel {
+  font-size: 2em;
+}
+
+.header-left {
+  border-right: solid honeydew 5px;
+}
+
+.header-left-iconvalue {
+  display: flex;
+  justify-conntent: center;
+  align-items: center;
+}
+
+#header-left-icon {
+  font-size: 3.5em;
+  margin: 0.2em;
+}
+
+.header-left-value {
+  font-size: 2em;
+  margin: 0.2em;
+}
+
+.header-right-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.header-right-grid-group {
+  display: flex;
+  flex-direction: column;
+  jusify-content: center;
+  align-items: center;
+  margin: 0.2em;
+  padding: 0.2em;
+}
+
+.header-right-value {
+  font-size: 1.5em;
+}
+
+/* DAYS */
+
+.section-days {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.section-day-card {
+  border: white solid 2px;
+  border-radius: 15%;
+  margin: 0.2em;
+  padding: 0.2em;
+}
+
+.section-day-card-temp-value {
+  font-size: 1.55em;
+}
+
+/* HOURS */
+
+.section-hours {
+  width: 100%;
+  text-align: center;
+  border-spacing: 0;
+}
+
+.section-hours-row:nth-child(2n) {
+  background-color: #323258
+}
