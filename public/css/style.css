@@ -1,49 +1,61 @@
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
 body {
-  background-color: #222;
+  background-color: rgb(38, 35, 65);
   color: #ddd;
   text-align: center;
   font-family: sans-serif;
+  margin: 0em;
+  padding: 0em;
 }
 
-.blurred  {
+.blurred {
   filter: blur(3px);
   overflow: hidden;
 }
 
-/* HEADER */ 
+/* HEADER */
 
 header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
-.header-left-mainlabel, .header-right-mainlabel {
-  font-size: 2em;
+.header-left,
+.header-right {
+  margin: 1.5em 3em 0.5em 3em;
 }
 
-.header-left {
-  border-right: solid honeydew 5px;
+.header-left-mainlabel,
+.header-right-mainlabel {
+  font-size: 2.25em;
+  margin: 0.1em;
+}
+
+.header-right-icon {
+  margin: 1em;
 }
 
 .header-left-iconvalue {
   display: flex;
-  justify-conntent: center;
+  justify-content: center;
   align-items: center;
 }
 
 #header-left-icon {
-  font-size: 3.5em;
-  margin: 0.2em;
+  font-size: 5em;
+  margin: 0.25em;
 }
 
 .header-left-value {
-  font-size: 2em;
-  margin: 0.2em;
+  font-size: 2.5em;
+  margin: 0.25em;
 }
 
 .header-right-grid {
@@ -55,14 +67,13 @@ header {
 .header-right-grid-group {
   display: flex;
   flex-direction: column;
-  jusify-content: center;
+  justify-content: center;
   align-items: center;
-  margin: 0.2em;
-  padding: 0.2em;
+  margin: 0.8em;
 }
 
 .header-right-value {
-  font-size: 1.5em;
+  font-size: 1.75em;
 }
 
 /* DAYS */
@@ -71,17 +82,34 @@ header {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  margin: 1em;
 }
 
 .section-day-card {
   border: white solid 2px;
-  border-radius: 15%;
+  border-radius: 10%;
   margin: 0.2em;
   padding: 0.2em;
+  width: 100px;
+  height: 120px;
+  margin: 7.5px;
+  padding: 5px;
 }
 
 .section-day-card-temp-value {
-  font-size: 1.55em;
+  font-size: 1.8em;
+  margin: 3px 0px;
+}
+
+.section-day-card-icon {
+  font-size: 2.75em;
+  margin: 3px 0px;
+}
+
+.section-day-card-label {
+  font-size: 1em;
+  margin: 3px 0px;
 }
 
 /* HOURS */
@@ -89,9 +117,26 @@ header {
 .section-hours {
   width: 100%;
   text-align: center;
-  border-spacing: 0;
+  border-spacing: 0; /* makes table connected */
+  margin: 1.25em 0em;
 }
 
 .section-hours-row:nth-child(2n) {
-  background-color: #323258
+  background-color: #313153;
+}
+
+.section-row-icon {
+  font-size: 1.95em;
+}
+
+.section-hours-value {
+  font-size: 1.65em;
+}
+
+@media only screen and (max-width: 850px) {
+  .header-left,
+  .header-right {
+    margin: 0em;
+    padding: 0em;
+  }
 }

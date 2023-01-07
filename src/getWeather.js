@@ -3,7 +3,7 @@
 // import axios from "axios"
 
 // export function getWeather(lat, lon, timezone) {
-//   return axios.get("https://api.open-meteo.com/v1/forecast?hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime", 
+//   return axios.get("https://api.open-meteo.com/v1/forecast?hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime",
 // {
 //     params: {
 //       latitude: lat,
@@ -15,46 +15,46 @@
 
 // NEEDED URL FROM OPEN API: https://open-meteo.com/
 
- // https://api.open-meteo.com/v1/forecast?latitude=49.19&longitude=16.66&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=Europe%2FBerlin
+// https://api.open-meteo.com/v1/forecast?latitude=49.19&longitude=16.66&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=Europe%2FBerlin
 
 export function getWeather(lat, lon, timezone) {
-
   let params = new URLSearchParams({
-      latitude: lat,
-      longitude: lon,
-      timezone,
-  })
-  let url = `https://api.open-meteo.com/v1/forecast?${ params.toString() }&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime`
-  console.log(url)
+    latitude: lat,
+    longitude: lon,
+    timezone,
+  });
+  let url = `https://api.open-meteo.com/v1/forecast?${params.toString()}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime`;
+  console.log(url);
 
   //return fetch(url).then(data => data.json())
-  
+
   return fetch(url)
-    .then(data => data.json())
-    .then(data => { return {
-    current: parseCurrentWeather(data),
-    daily: parseDailyWeather(data),
-    hourly: parseHourlyWeather(data),
-  }})
+    .then((data) => data.json())
+    .then((data) => {
+      return {
+        current: parseCurrentWeather(data),
+        daily: parseDailyWeather(data),
+        hourly: parseHourlyWeather(data),
+      };
+    });
 }
 
 //destructuring current_weather = Object.current_weather, daily = Object.daily
 
 function parseCurrentWeather({ current_weather, daily }) {
-
   //destructuring current weather values ... const currentTemp = current_weather.tempeture, const windSpeed = cu  ...
-  
+
   const {
     weathercode: currentIconCode,
-    temperature: currentTemp, 
-    windspeed: todayWindSpeed, 
-        } = current_weather;
+    temperature: currentTemp,
+    windspeed: todayWindSpeed,
+  } = current_weather;
 
-  //destructuring daily values
+  // destructuring daily values
   // temperature_2m_min[0]: todayLowTemp cant be used for some reason, so we can use destructuring array - temperature_2m_max: [todayHighTemp] //// const todayHighTemp = daily.temperature_2m_max[0]
 
-//  const todayHighTemp = daily.temperature_2m_max;
-  
+  //  const todayHighTemp = daily.temperature_2m_max;
+
   const {
     weathercode: [todayIconCode],
     temperature_2m_max: [todayMaxTemp],
@@ -62,24 +62,22 @@ function parseCurrentWeather({ current_weather, daily }) {
     precipitation_sum: [todayWater],
     apparent_temperature_max: [todayApparentTempMax],
     apparent_temperature_min: [todayApparentTempMin],
-    
   } = daily;
 
   return {
-    currentIconCode: Math.round(currentIconCode),
-    currentTemp: Math.round(currentTemp),
-    todayIconCode: Math.round(todayIconCode),
-    todayMaxTemp: Math.round(todayMaxTemp),
-    todayMinTemp: Math.round(todayMinTemp),
-    todayWindSpeed: Math.round(todayWindSpeed),
-    todayWater: Math.round(todayWater),
-    todayApparentTempMax: Math.round(todayApparentTempMax),
-    todayApparentTempMin: Math.round(todayApparentTempMin),
+    currentIconCode: currentIconCode,
+    currentTemp: currentTemp,
+    todayIconCode: todayIconCode,
+    todayMaxTemp: todayMaxTemp,
+    todayMinTemp: todayMinTemp,
+    todayWindSpeed: todayWindSpeed,
+    todayWater: todayWater,
+    todayApparentTempMax: todayApparentTempMax,
+    todayApparentTempMin: todayApparentTempMin,
   };
 }
 
 function parseDailyWeather({ daily }) {
-
   const {
     weathercode: dailyIconCode,
     temperature_2m_max: dailyTemp,
@@ -94,7 +92,6 @@ function parseDailyWeather({ daily }) {
 }
 
 function parseHourlyWeather({ hourly, current_weather }) {
-
   const {
     time: hourlyTime,
     weathercode: hourlyIcon,
@@ -102,43 +99,52 @@ function parseHourlyWeather({ hourly, current_weather }) {
     windspeed_10m: hourlyWind,
     precipitation: hourlyWater,
     relativehumidity_2m: hourlyHumidity,
-
   } = hourly;
 
-  return hourly.time.map((elem, index) => {
-      return {
-            hourlyTime: elem,
-            hourlyIcon: hourlyIcon[index],
-            hourlyTemp: hourlyTemp[index],
-            hourlyWind: hourlyWind[index],
-            hourlyWater: hourlyWater[index],
-            hourlyHumidity: hourlyHumidity[index],
-      }}).filter((elem) => current_weather.time <= elem.hourlyTime)
+  //map hourly.time so we can map and filter (and later render) dates in future, not in past, API returns hours from 0 AM
 
-  //or .filter(({hourlyTime}) => current_weather.time <= hourlyTime)
-  
+  return hourly.time
+    .map((elem, index) => {
+      return {
+        hourlyTime: elem,
+        hourlyIcon: hourlyIcon[index],
+        hourlyTemp: hourlyTemp[index],
+        hourlyWind: Math.round(hourlyWind[index]),
+        hourlyWater: hourlyWater[index],
+        hourlyHumidity: hourlyHumidity[index],
+      };
+    })
+    .filter((elem) => current_weather.time <= elem.hourlyTime) //or .filter(({hourlyTime}) => current_weather.time <= hourlyTime)
+    .map((elem) => {
+      elem.hourlyHours = new Date(elem.hourlyTime * 1000).getHours(); //to get hours from UNIX timestamp
+      elem.hourlyDayName = new Date(elem.hourlyTime * 1000).toLocaleDateString(
+        // to get day name from unix timestamp
+        "en-us",
+        {
+          weekday: "long",
+        }
+      );
+      if (elem.hourlyHours >= 21 || elem.hourlyHours <= 5) {
+        if (
+          elem.hourlyIcon === 0 ||
+          elem.hourlyIcon === 1 ||
+          elem.hourlyIcon === 2
+        ) {
+          elem.hourlyIcon = 101;
+        }
+      }
+      return elem;
+    });
 }
 
-// function getHourlyTime(arrayOfUnixTime, currentUnixTime) {
-// {hourlyDays: new Date(elem * 1000).toLocaleDateString("en-us", { weekday: 'long' }), hourlyHours: new Date(elem * 1000).getHours()}
-//     const date = new Date(arrayOfUnixTime[i] * 1000);
-//     hourlyHours.push(date.getHours());
-//     hourlyDays.push(date.toLocaleDateString("en-us", { weekday: 'long' }));
-//     }
-//   }
-//   return {
-//     hourlyHours: hourlyHours,
-//     hourlyDays: hourlyDays,
-//   }
-// }
+//imperative way to get the same done for daily values
 
 function getDailyTime(arrayOfUnixTime) {
-
   let hourlyDays = [];
 
   for (let i = 0; i < arrayOfUnixTime.length; i++) {
     const date = new Date(arrayOfUnixTime[i] * 1000);
-    hourlyDays.push(date.toLocaleDateString("en-us", { weekday: 'long' })); 
+    hourlyDays.push(date.toLocaleDateString("en-us", { weekday: "long" }));
   }
   return hourlyDays;
 }

@@ -1,468 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="public/css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
+    <script
+      src="https://kit.fontawesome.com/4f33c23f9d.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Weather App</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" type="text/css" href="public/css/style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"></script>
-  <script src="https://kit.fontawesome.com/4f33c23f9d.js" crossorigin="anonymous"></script>
-  <title>Weather App</title>
-</head>
+  <body class="blurred">
+    <!--  HEADER  -->
+    <header class="header">
+      <div class="header-left">
+        <div class="header-left-mainlabel">Currently</div>
+        <div class="header-left-iconvalue">
+          <i
+            class="fa-solid fa-sun"
+            id="header-left-icon"
+            data-current-icon
+          ></i>
 
-<body class="blurre">
-  <!--  HEADER  -->
-
-  <header class="header">
-    <div class="header-left">
-      <div class="header-left-mainlabel">Currently</div>
-      <div class="header-left-iconvalue">
-        <i class="fa-solid fa-sun" id="header-left-icon" data-current-icon></i><span class="header-left-value"
-          data-current-temp>30&deg</span>
-      </div>
-    </div>
-    <div class="header-right">
-      <div class="header-right-mainlabel">Today</div>
-      <div class="header-right-grid">
-        <div class="header-right-grid-group">
-          <div class="header-right-labels">Max. temp</div>
-          <div class="header-left-iconvalue">
-            <span class="header-right-value" data-current-max-temp>30</span>&deg
-          </div>
-        </div>
-        <div class="header-right-grid-group">
-          <div class="header-right-labels">Min. temp</div>
-          <div class="header-left-iconvalue">
-            <span class="header-right-value" data-current-min-temp>30</span>&deg
-          </div>
-        </div>
-        <div class="header-right-grid-group">
-          <div class="header-right-labels">Precip. sum</div>
-          <div class="header-left-iconvalue">
-            <span class="header-right-value" data-current-water>30</span>mm/h
-          </div>
-        </div>
-        <div class="header-right-grid-group">
-          <div class="header-right-labels">App.curr. temp</div>
-          <div class="header-left-iconvalue">
-            <span class="header-right-value" data-current-feel-temp>30</span>&deg
-          </div>
-        </div>
-        <div class="header-right-grid-group">
-          <div class="header-right-labels">App.curr. temp</div>
-          <div class="header-left-iconvalue">
-            <span class="header-right-value" data-current-feel-temp>30</span>&deg
-          </div>
-        </div>
-        <div class="header-right-grid-group">
-          <div class="header-right-labels">Curr. wind</div>
-          <div class="header-left-iconvalue">
-            <span class="header-right-value" data-current-wind>30</span>kmh
+          <div class="header-left-value">
+            <span data-current-temp>30</span>&deg
           </div>
         </div>
       </div>
-    </div>
-  </header>
+      <div class="header-right">
+        <div class="header-right-mainlabel">
+          Today
+          <i
+            class="fa-solid fa-sun"
+            id="header-right-icon"
+            data-current-today-icon
+          ></i>
+        </div>
+        <div class="header-right-grid">
+          <div class="header-right-grid-group">
+            <div class="header-right-labels">MAX</div>
+            <div class="header-right-value">
+              <span data-current-max-temp>30</span>&deg
+            </div>
+          </div>
+          <div class="header-right-grid-group">
+            <div class="header-right-labels">MIN</div>
+            <div class="header-right-value">
+              <span data-current-min-temp>30</span>&deg
+            </div>
+          </div>
+          <div class="header-right-grid-group">
+            <div class="header-right-labels">PRECIP</div>
+            <div class="header-left-iconvalue">
+              <span class="header-right-value" data-current-water>30</span>mm
+            </div>
+          </div>
+          <div class="header-right-grid-group">
+            <div class="header-right-labels">FEEL MAX</div>
+            <div class="header-right-value">
+              <span data-current-max-feel-temp>30</span>&deg
+            </div>
+          </div>
+          <div class="header-right-grid-group">
+            <div class="header-right-labels">FEEL MIN</div>
+            <div class="header-right-value">
+              <span data-current-min-feel-temp>30</span>&deg
+            </div>
+          </div>
+          <div class="header-right-grid-group">
+            <div class="header-right-labels">WIND</div>
+            <div class="header-left-iconvalue">
+              <span class="header-right-value" data-current-wind>30</span>kmh
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
-  <!--  DAYS  -->
+    <!--  DAYS  -->
+    <div class="header-left-mainlabel">Daily weather</div>
+    <section class="section-days" data-section-days>
+      <div class="section-day-card">
+        <i class="fa-solid fa-cloud section-day-card-icon"></i>
+        <div class="section-day-card-label">Sunday</div>
+        <div class="section-day-card-temp">
+          <span class="section-day-card-temp-value">30</span>&deg
+        </div>
+      </div>
+      <div class="section-day-card">
+        <i class="fa-solid fa-cloud section-day-card-icon"></i>
+        <div class="section-day-card-label">Sunday</div>
+        <div class="section-day-card-temp">
+          <span class="section-day-card-temp-value">30</span>&deg
+        </div>
+      </div>
+      <div class="section-day-card">
+        <i class="fa-solid fa-cloud section-day-card-icon"></i>
+        <div class="section-day-card-label">Sunday</div>
+        <div class="section-day-card-temp">
+          <span class="section-day-card-temp-value">30</span>&deg
+        </div>
+      </div>
+      <div class="section-day-card">
+        <i class="fa-solid fa-cloud section-day-card-icon"></i>
+        <div class="section-day-card-label">Sunday</div>
+        <div class="section-day-card-temp">
+          <span class="section-day-card-temp-value">30</span>&deg
+        </div>
+      </div>
+      <div class="section-day-card">
+        <i class="fa-solid fa-cloud section-day-card-icon"></i>
+        <div class="section-day-card-label">Sunday</div>
+        <div class="section-day-card-temp">
+          <span class="section-day-card-temp-value">30</span>&deg
+        </div>
+      </div>
+      <div class="section-day-card">
+        <i class="fa-solid fa-cloud section-day-card-icon"></i>
+        <div class="section-day-card-label">Sunday</div>
+        <div class="section-day-card-temp">
+          <span class="section-day-card-temp-value">30</span>&deg
+        </div>
+      </div>
+      <div class="section-day-card">
+        <i class="fa-solid fa-cloud section-day-card-icon"></i>
+        <div class="section-day-card-label">Sunday</div>
+        <div class="section-day-card-temp">
+          <span class="section-day-card-temp-value">30</span>&deg
+        </div>
+      </div>
+    </section>
 
-  <section class="section-days" data-section-days>
-    <div class="section-day-card">
-      <i class="fa-solid fa-cloud section-day-card-icon"></i>
-      <div class="section-day-card-label">Neděle</div>
-      <div class="section-day-card-temp">
-        <span class="section-day-card-temp-value">30</span>&deg
-      </div>
-    </div>
-    <div class="section-day-card">
-      <i class="fa-solid fa-cloud section-day-card-icon"></i>
-      <div class="section-day-card-label">Neděle</div>
-      <div class="section-day-card-temp">
-        <span class="section-day-card-temp-value">30</span>&deg
-      </div>
-    </div>
-    <div class="section-day-card">
-      <i class="fa-solid fa-cloud section-day-card-icon"></i>
-      <div class="section-day-card-label">Neděle</div>
-      <div class="section-day-card-temp">
-        <span class="section-day-card-temp-value">30</span>&deg
-      </div>
-    </div>
-    <div class="section-day-card">
-      <i class="fa-solid fa-cloud section-day-card-icon"></i>
-      <div class="section-day-card-label">Neděle</div>
-      <div class="section-day-card-temp">
-        <span class="section-day-card-temp-value">30</span>&deg
-      </div>
-    </div>
-    <div class="section-day-card">
-      <i class="fa-solid fa-cloud section-day-card-icon"></i>
-      <div class="section-day-card-label">Neděle</div>
-      <div class="section-day-card-temp">
-        <span class="section-day-card-temp-value">30</span>&deg
-      </div>
-    </div>
-    <div class="section-day-card">
-      <i class="fa-solid fa-cloud section-day-card-icon"></i>
-      <div class="section-day-card-label">Neděle</div>
-      <div class="section-day-card-temp">
-        <span class="section-day-card-temp-value">30</span>&deg
-      </div>
-    </div>
-    <div class="section-day-card">
-      <i class="fa-solid fa-cloud section-day-card-icon"></i>
-      <div class="section-day-card-label">Neděle</div>
-      <div class="section-day-card-temp">
-        <span class="section-day-card-temp-value">30</span>&deg
-      </div>
-    </div>
-  </section>
+    <!--  HOURS  -->
+    <div class="header-left-mainlabel">Hourly weather</div>
+    <table class="section-hours">
+      <tbody data-section-hours>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+        <tr class="section-hours-row">
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Neděle</div>
+              <div class="header-right-value">3 PM</div>
+            </div>
+          </td>
+          <td>
+            <i class="fa-solid section-row-icon fa-cloud"></i>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Teplota</div>
+              <div><span class="header-right-value">30</span>&deg</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vítr</div>
+              <div><span class="header-right-value">30</span>kmh</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Srážky</div>
+              <div><span class="header-right-value">30</span>mm</div>
+            </div>
+          </td>
+          <td>
+            <div class="section-hours-row-group">
+              <div class="label">Vlhkost</div>
+              <div><span class="header-right-value">30</span>%</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!--  HOURS  -->
+    <!--  TEMPLATES  -->
 
-  <table class="section-hours">
-    <tbody data-section-hours>
+    <template id="day-card-template">
+      <div class="section-day-card">
+        <i data-day-icon class="fa-solid section-day-card-icon"></i>
+        <div data-day-date class="section-day-card-label"></div>
+        <div class="section-day-card-temp-value">
+          <span data-day-value></span>&deg
+        </div>
+      </div>
+    </template>
+
+    <template id="hour-row-template">
       <tr class="section-hours-row">
         <td>
           <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
+            <div data-hour-day class="label"></div>
+            <div>
+              <span data-hour-hour class="section-hours-value"></span>PM
+            </div>
           </div>
         </td>
         <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
+          <i data-hour-icon class="fa-solid section-row-icon"></i>
         </td>
         <td>
           <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
+            <div class="label">Temp</div>
+            <div class="section-hours-value">
+              <span data-hour-temp></span>&deg
+            </div>
           </div>
         </td>
         <td>
           <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
+            <div class="label">Wind</div>
+            <div>
+              <span data-hour-wind class="section-hours-value"></span>kmh
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="section-hours-row-group">
+            <div class="label">Precip</div>
+            <div>
+              <span data-hour-water class="section-hours-value"></span>mm
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="section-hours-row-group">
+            <div class="label">Humidity</div>
+            <div>
+              <span data-hour-humidity class="section-hours-value"></span>%
+            </div>
           </div>
         </td>
       </tr>
-      <tr class="section-hours-row">
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
-          </div>
-        </td>
-        <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
-          </div>
-        </td>
-      </tr>
-      <tr class="section-hours-row">
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
-          </div>
-        </td>
-        <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
-          </div>
-        </td>
-      </tr>
-      <tr class="section-hours-row">
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
-          </div>
-        </td>
-        <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
-          </div>
-        </td>
-      </tr>
-      <tr class="section-hours-row">
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
-          </div>
-        </td>
-        <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
-          </div>
-        </td>
-      </tr>
-      <tr class="section-hours-row">
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
-          </div>
-        </td>
-        <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
-          </div>
-        </td>
-      </tr>
-      <tr class="section-hours-row">
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
-          </div>
-        </td>
-        <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
-          </div>
-        </td>
-      </tr>
-      <tr class="section-hours-row">
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Neděle</div>
-            <div class="header-right-value">3 PM</div>
-          </div>
-        </td>
-        <td>
-          <i class="fa-solid section-row-icon fa-cloud"></i>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Teplota</div>
-            <div><span class="header-right-value">30</span>&deg</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vítr</div>
-            <div><span class="header-right-value">30</span>kmh</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Srážky</div>
-            <div><span class="header-right-value">30</span>mm</div>
-          </div>
-        </td>
-        <td>
-          <div class="section-hours-row-group">
-            <div class="label">Vlhkost</div>
-            <div><span class="header-right-value">30</span>%</div>
-          </div>
-        </td>
-      </tr>
+    </template>
 
-
-    </tbody>
-  </table>
-
-  <!--  TEMPLATES  -->
-
-  <template id="day-card-template">
-    <div class="section-day-card">
-      <i data-day-icon class="section-day-card-icon"></i>
-      <div data-day-date class="section-day-card-label"></div>
-      <div class="header-left-iconvalue">
-        <span data-day-value class="header-right-value"></span>&deg
-      </div>
-    </div>
-  </template>
-
-
-  <template id="hour-row-template">
-
-    <tr class="section-hours-row">
-      <td>
-        <div class="section-hours-row-group">
-          <div data-hour-day class="label"></div>
-          <div data-hour-hour class="header-right-value"></div>
-        </div>
-      </td>
-      <td>
-        <i data-hour-icon class="section-row-icon"></i>
-      </td>
-      <td>
-        <div class="section-hours-row-group">
-          <div class="label">Teplota</div>
-          <div><span data-hour-temp class="header-right-value"></span>&deg</div>
-        </div>
-      </td>
-      <td>
-        <div class="section-hours-row-group">
-          <div class="label">Vítr</div>
-          <div><span data-hour-wind class="header-right-value"></span>kmh</div>
-        </div>
-      </td>
-      <td>
-        <div class="section-hours-row-group">
-          <div class="label">Srážky</div>
-          <div><span data-hour-water class="header-right-value"></span>mm</div>
-        </div>
-      </td>
-      <td>
-        <div class="section-hours-row-group">
-          <div class="label">Vlhkost</div>
-          <div><span data-hour-humidity class="header-right-value"></span>%</div>
-        </div>
-      </td>
-    </tr>
-
-  </template>
-
-  <script type="module" src="src/main.js"></script>
-
-</body>
-
+    <script type="module" src="src/main.js"></script>
+  </body>
 </html>
