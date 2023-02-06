@@ -6,7 +6,7 @@ navigator.geolocation.getCurrentPosition(positionSuccess, positionError);
 // sets corrent long and lat coords, and calls getWeather, for rendering all values
 
 function positionSuccess(GeoLocationCoordinates) {
-  // or just ({coords}) instead
+  // or just ({coords}) instead with destructuring
   getWeather(
     GeoLocationCoordinates.coords.latitude,
     GeoLocationCoordinates.coords.longitude,
@@ -21,7 +21,7 @@ function positionSuccess(GeoLocationCoordinates) {
 
 function positionError() {
   alert(
-    "There was an error getting your location. Please allow to use your location and refresh the page"
+    "There was an error getting your location. Please allow using your location and refresh the page"
   );
 }
 
@@ -121,6 +121,6 @@ function renderHourlyWeather(hourly) {
     HOUR_TEMPLATE.querySelector("[data-hour-humidity]").textContent =
       hour.hourlyHumidity;
 
-    hourlySection.append(HOUR_TEMPLATE);
+    hourlySection.append(HOUR_TEMPLATE);  //to append each template to hourlySection
   });
 }

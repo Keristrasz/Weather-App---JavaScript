@@ -1,7 +1,5 @@
 // AXIOS WAY:
 
-// import axios from "axios"
-
 // export function getWeather(lat, lon, timezone) {
 //   return axios.get("https://api.open-meteo.com/v1/forecast?hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime",
 // {
@@ -48,7 +46,7 @@ function parseCurrentWeather({ current_weather, daily }) {
     weathercode: currentIconCode,
     temperature: currentTemp,
     windspeed: todayWindSpeed,
-  } = current_weather;
+  } = current_weather;  //from current weather part
 
   // destructuring daily values
   // temperature_2m_min[0]: todayLowTemp cant be used for some reason, so we can use destructuring array - temperature_2m_max: [todayHighTemp] //// const todayHighTemp = daily.temperature_2m_max[0]
@@ -62,18 +60,18 @@ function parseCurrentWeather({ current_weather, daily }) {
     precipitation_sum: [todayWater],
     apparent_temperature_max: [todayApparentTempMax],
     apparent_temperature_min: [todayApparentTempMin],
-  } = daily;
+  } = daily;    //from daily weather part, its daily values of array, not one single value
 
   return {
-    currentIconCode: currentIconCode,
-    currentTemp: currentTemp,
-    todayIconCode: todayIconCode,
-    todayMaxTemp: todayMaxTemp,
-    todayMinTemp: todayMinTemp,
-    todayWindSpeed: todayWindSpeed,
-    todayWater: todayWater,
-    todayApparentTempMax: todayApparentTempMax,
-    todayApparentTempMin: todayApparentTempMin,
+    currentIconCode,
+    currentTemp,
+    todayIconCode,
+    todayMaxTemp,
+    todayMinTemp,
+    todayWindSpeed,
+    todayWater,
+    todayApparentTempMax,
+    todayApparentTempMin,
   };
 }
 
@@ -121,10 +119,10 @@ function parseHourlyWeather({ hourly, current_weather }) {
         // to get day name from unix timestamp
         "en-us",
         {
-          weekday: "long",
+          weekday: "long",  //long day - friday, short day - fri
         }
       );
-      if (elem.hourlyHours >= 21 || elem.hourlyHours <= 5) {
+      if (elem.hourlyHours >= 21 || elem.hourlyHours <= 5) {  //to get moon icon insteaad of sun icon at night
         if (
           elem.hourlyIcon === 0 ||
           elem.hourlyIcon === 1 ||
@@ -137,7 +135,7 @@ function parseHourlyWeather({ hourly, current_weather }) {
     });
 }
 
-//imperative way to get the same done for daily values
+//imperative way to get the same done for daily values, in hourly we used map, filter
 
 function getDailyTime(arrayOfUnixTime) {
   let hourlyDays = [];
