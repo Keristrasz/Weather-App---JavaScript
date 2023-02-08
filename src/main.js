@@ -21,11 +21,19 @@ function positionSuccess(GeoLocationCoordinates) {
 
 function positionError() {
   alert(
-    "There was an error getting your location. Please allow using your location and refresh the page"
+    "There was an error getting your location. Please allow us using your location (probably at right top corner) and refresh the page, without it we can not set proper weather data for your current position. Position is by default set to Prague!."
   );
+  //position set to Prague for error
+  getWeather(
+    50.073658,
+    14.418540,
+    Intl.DateTimeFormat().resolvedOptions().timeZone //to get current timezone
+  )
+    .then((res) => {
+      renderWeather(res);
+    })
+    .catch((err) => console.log(err));
 }
-
-//Intl.DateTimeFormat().resolvedOptions().timeZone to get current timezone
 
 //func for rendering all changing values, in goes object from API from ./getWeather.js
 

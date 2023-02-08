@@ -15,7 +15,7 @@ body {
 
 .blurred {
   filter: blur(3px);
-  overflow: hidden;
+/*   overflow: hidden; */
 }
 
 /* HEADER */
@@ -136,6 +136,7 @@ header {
 /* BADGE */
 
 #badge {
+  text-decoration: none;
   position: fixed;
   cursor: pointer;
   bottom: 26px;
@@ -146,7 +147,6 @@ header {
   padding: 0.3em 0.75em;
   border-radius: 0.3em;
   font-size: 1.25em;
-  text-decoration: none;
   box-shadow: 3px 3px 3px black;
 }
 

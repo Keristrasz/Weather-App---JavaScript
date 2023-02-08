@@ -1,16 +1,3 @@
-// AXIOS WAY:
-
-// export function getWeather(lat, lon, timezone) {
-//   return axios.get("https://api.open-meteo.com/v1/forecast?hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime",
-// {
-//     params: {
-//       latitude: lat,
-//       longitude: lon,
-//       timezone,
-//     },
-//   })
-// }
-
 // NEEDED URL FROM OPEN API: https://open-meteo.com/
 
 // https://api.open-meteo.com/v1/forecast?latitude=49.19&longitude=16.66&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime&timezone=Europe%2FBerlin
@@ -22,9 +9,7 @@ export function getWeather(lat, lon, timezone) {
     timezone,
   });
   let url = `https://api.open-meteo.com/v1/forecast?${params.toString()}&hourly=temperature_2m,relativehumidity_2m,apparent_temperature,precipitation,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,precipitation_sum&current_weather=true&timeformat=unixtime`;
-  console.log(url);
 
-  //return fetch(url).then(data => data.json())
 
   return fetch(url)
     .then((data) => data.json())
@@ -36,7 +21,6 @@ export function getWeather(lat, lon, timezone) {
       };
     });
 }
-
 //destructuring current_weather = Object.current_weather, daily = Object.daily
 
 function parseCurrentWeather({ current_weather, daily }) {
