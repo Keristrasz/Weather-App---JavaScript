@@ -1,3 +1,3 @@
 # WeatherApp - JavaScript
 
-Weather App with JS. Gets your location and times, and with open source api renders weather data - daily, hourly and current. https://open-meteo.com/
+Weather App with JS. You have to allow location detection for app to work correctly. With open source api App renders weather data - daily, hourly and current for your current position and time. https://open-meteo.com/
